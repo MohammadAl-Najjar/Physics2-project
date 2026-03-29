@@ -1,0 +1,25 @@
+{
+  "name": "physics2-project",
+  "version": "1.0.0",
+  "description": "A Phsyics 2 Q&A web application where students ask for help about topics in physics ",
+  "homepage": "https://github.com/MohammadAl-Najjar/Physics2-project#readme",
+  "bugs": {
+    "url": "https://github.com/MohammadAl-Najjar/Physics2-project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohammadAl-Najjar/Physics2-project.git"
+  },
+  "license": "ISC",
+  "author": "Mohammad Al-Najjar",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1"
+  }
+}

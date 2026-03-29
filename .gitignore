@@ -1,0 +1,15 @@
+node_modules/
+
+.env
+
+db/*.db
+db/*.sqlite
+db/*.sqlite3
+
+*.log
+
+.DS_Store
+
+frontend/node_modules/
+frontend/build/
+frontend/dist/
