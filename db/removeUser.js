@@ -7,4 +7,4 @@ await db.exec(`
 `)
 
 
-db.close()
+await db.close()
