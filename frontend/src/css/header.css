@@ -1,0 +1,82 @@
+.header {
+  background-color: #171717;
+  color: #579af7;
+  font-family: "Space Grotesk", sans-serif;
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-title {
+  margin-right: 20px;
+  font-size: 1.9rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.header-home-button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid #579af7;
+  color: #65a5ff;
+  padding: 0 0 4px 0;
+  font: inherit;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.header-right-buttons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-login-button {
+  background: none;
+  border: none;
+  color: #579af7;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: 0.1s;
+}
+
+.header-signin-button {
+  color: #252525;
+  background-color: #579af7;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+
+.header-logout-button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logout {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.header-signin-button:hover, .header-home-button:hover, .header-login-button:hover, .header-logout-button:hover {
+    transform: scale(1.1);
+    transition: 0.1s;
+}

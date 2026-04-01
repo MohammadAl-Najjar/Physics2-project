@@ -28,11 +28,11 @@ export async function registerController(req, res) {
             return res.status(400).json({err: "Password must contain at least 8 characters"})
         }
 
-        // const response = await fetch (`https://api.zerobounce.net/v2/validate?email=${email}&api_key=${process.env.ZEROBOUNCE_API_KEY}`);
-        // const data = await response.json()
-        // if (data.status != "valid") {
-        //     return res.status(400).json({err: "This email address does not exist"})
-        // }
+        const response = await fetch (`https://api.zerobounce.net/v2/validate?email=${email}&api_key=${process.env.ZEROBOUNCE_API_KEY}`);
+        const data = await response.json()
+        if (data.status != "valid") {
+            return res.status(400).json({err: "This email address does not exist"})
+        }
 
         const db = await openConnection();
 
@@ -91,8 +91,16 @@ export async function loginController(req, res) {
     }
 }
 
-export async function logoutController(req, res) {
-    session.destroy(() => {
-        res.json({message: "Logged out"});
-    })
+export function sessionController(req, res) {
+    const userId = req.session.userId;
+    res.json({ userId: userId ?? null });
+}
+
+export function logoutController(req, res) {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ err: "Failed to log out" });
+        }
+        res.json({ message: "Logged out" });
+    });
 }

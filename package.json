@@ -15,6 +15,9 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
+    "backend": "node server.js",
+    "frontend": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -27,5 +30,8 @@
     "sqlite": "^5.1.1",
     "sqlite3": "^6.0.1",
     "validator": "^13.15.26"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
