@@ -22,4 +22,6 @@ app.use(session({
 app.use(express.static(path.join('frontend')));
 app.use("/api/auth", authRouter);
 
+module.exports = { server };
+
 app.listen(PORT,() => {console.log(`Listening on port ${PORT}`)});
