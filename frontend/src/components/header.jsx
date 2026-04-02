@@ -37,5 +37,3 @@ export default function Header() {
     </header>
   );
 }
-
-//<button type="button" className="header-logout-placeholder" aria-label="logout placeholder" /

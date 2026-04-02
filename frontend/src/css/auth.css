@@ -69,3 +69,9 @@
   font: inherit;
   text-decoration: underline;
 }
+
+.auth-error {
+  color: #ff6565;
+  text-align: center;
+  margin-bottom: 10px;
+}

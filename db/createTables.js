@@ -24,6 +24,7 @@ async function createPostsTable() {
         user_id INTEGER NOT NULL,
         category TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        image_url TEXT,
         FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
         )
     `)

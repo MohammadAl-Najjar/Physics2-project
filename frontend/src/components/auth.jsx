@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "../css/auth.css";
 import { useAuth } from "../context/AuthContext.jsx";
+import { handleLoginSubmit, handleRegisterSubmit } from "../handlers/authHandlers.js";
 
 export default function Auth() {
-  const { signInMode, setSignInMode } = useAuth();
+  const { signInMode, setSignInMode, refreshSession } = useAuth();
   const [role, setRole] = useState("student");
+  const [error, setError] = useState(null);
 
   return (
     <main className="auth-page">
@@ -12,7 +14,8 @@ export default function Auth() {
         {signInMode === "login" ? (
           <>
             <h2 className="auth-title">Login</h2>
-            <form className="auth-form">
+            {error && <p className="auth-error">{error}</p>}
+            <form className="auth-form" onSubmit={(e) => handleLoginSubmit(e, setError, refreshSession)}>
               <label className="auth-label" htmlFor="login-email">
                 Email
               </label>
@@ -38,7 +41,8 @@ export default function Auth() {
         ) : (
           <>
             <h2 className="auth-title">Sign in</h2>
-            <form className="auth-form">
+            {error && <p className="auth-error">{error}</p>}
+            <form className="auth-form" onSubmit={(e) => handleRegisterSubmit(e, setError, refreshSession)}>
               <label className="auth-label" htmlFor="signin-name">
                 Name
               </label>

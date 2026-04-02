@@ -2,18 +2,9 @@
   base = "frontend"
   command = "npm install && npm run build"
   publish = "dist"
-  functions = "netlify/functions"
-
-[functions]
-  external_node_modules = ["express"]
 
 [[redirects]]
   force = true
   status = 200
-  from = "/api/*"
-  to = "/netlify/functions/index"
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
