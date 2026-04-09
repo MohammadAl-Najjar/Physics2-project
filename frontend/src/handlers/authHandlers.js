@@ -9,6 +9,7 @@ export const handleLoginSubmit = async (e, setError, refreshSession) => {
   try {
     const res = await fetch("/api/auth/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,7 +18,6 @@ export const handleLoginSubmit = async (e, setError, refreshSession) => {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      console.log(data);
       setError(data.err || "Login failed");
       return;
     }
@@ -47,6 +47,7 @@ export const handleRegisterSubmit = async (e, setError, refreshSession) => {
   try {
     const res = await fetch("/api/auth/register", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -63,4 +64,17 @@ export const handleRegisterSubmit = async (e, setError, refreshSession) => {
   } catch (err) {
     setError("Network error. Please try again later.");
   }
+};
+
+export const fetchSession = async () => {
+  const res = await fetch("/api/auth/session", { credentials: "include" });
+  if (!res.ok) {
+    throw new Error("Failed to fetch session");
+  }
+  return await res.json();
+};
+
+export const handleLogout = async (refreshSession) => {
+  await fetch("/api/auth/logout", { credentials: "include" });
+  await refreshSession();
 };

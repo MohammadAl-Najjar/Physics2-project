@@ -1,10 +1,11 @@
 .post-card {
-  background-color: #161616;
+  background-color: var(--bg-post);
   border-radius: 8px;
   padding: 24px;
   margin-bottom: 24px;
   font-family: inherit;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--border-subtle);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .post-clickable {
@@ -14,11 +15,11 @@
 
 .post-clickable:hover {
   transform: translateY(-2px);
-  background-color: #1a1a1a;
+  background-color: var(--bg-post-hover);
 }
 
 .post-category {
-  color: #579af7;
+  color: var(--accent);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 1.2px;
@@ -26,7 +27,7 @@
 }
 
 .post-body {
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0 0 24px 0;
@@ -34,14 +35,25 @@
 }
 
 .post-meta {
-  color: #a0a0a0;
+  color: var(--text-muted);
   font-size: 0.95rem;
   display: flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
 }
 
 .post-author {
-  color: #ffffff;
+  color: var(--text-primary);
   font-weight: 500;
+}
+
+.post-count-badge {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  background: var(--bg-hover);
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
 }

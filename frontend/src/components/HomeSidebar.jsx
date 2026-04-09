@@ -1,15 +1,23 @@
 import "../css/home-sidebar.css";
 import { usePage } from "../context/PageContext.jsx";
 
-export default function HomeSidebar() {
+export default function HomeSidebar({ selectedCategory, onSelectCategory }) {
   const { setActivePage } = usePage();
-  const placeholders = [
+  const categories = [
     "Classical Mechanics",
     "Thermodynamics",
     "Electromagnetism",
     "Quantum Mechanics",
     "Optics"
   ];
+
+  const handleCategoryClick = (cat) => {
+    if (selectedCategory === cat) {
+      onSelectCategory(null);
+    } else {
+      onSelectCategory(cat);
+    }
+  };
 
   return (
     <aside className="home-sidebar">
@@ -20,8 +28,12 @@ export default function HomeSidebar() {
       <div className="categories-box">
         <h3 className="categories-title">Filter by Category</h3>
         <div className="categories-list">
-          {placeholders.map((cat, idx) => (
-            <div key={idx} className="category-row">
+          {categories.map((cat, idx) => (
+            <div
+              key={idx}
+              className={`category-row ${selectedCategory === cat ? "category-row-active" : ""}`}
+              onClick={() => handleCategoryClick(cat)}
+            >
               {cat}
             </div>
           ))}

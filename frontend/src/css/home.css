@@ -19,17 +19,17 @@
 }
 
 .home-title-top {
-  color: #ffffff;
+  color: var(--text-primary);
   display: block;
 }
 
 .home-title-bottom {
-  color: #579af7;
+  color: var(--accent);
   display: block;
 }
 
 .home-subtitle {
-  color: #d9d9d9;
+  color: var(--text-secondary);
   font-size: 1.25rem;
   line-height: 1.6;
   max-width: 700px;

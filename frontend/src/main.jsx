@@ -5,6 +5,7 @@ import CreatePostPage from "./pages/CreatePostPage.jsx"
 import PostViewPage from "./pages/PostViewPage.jsx"
 import { AuthProvider, useAuth } from "./context/AuthContext.jsx"
 import { PageProvider, usePage } from "./context/PageContext.jsx"
+import { ThemeProvider } from "./context/ThemeContext.jsx"
 import "./css/main.css"
 
 function AuthGate() {
@@ -25,10 +26,12 @@ function AuthGate() {
 export default function Main() {
     return (
         <AuthProvider>
-            <PageProvider>
-                <Header />
-                <AuthGate />
-            </PageProvider>
+            <ThemeProvider>
+                <PageProvider>
+                    <Header />
+                    <AuthGate />
+                </PageProvider>
+            </ThemeProvider>
         </AuthProvider>
     )
 }

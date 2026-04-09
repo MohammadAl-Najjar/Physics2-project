@@ -1,6 +1,7 @@
 import { openConnection } from "../../db/openDbConnection.js"
 import validator from "validator"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 // TODO : use session stores like redis or mongoDB to persist data even
 // after restarts  
@@ -52,9 +53,20 @@ export async function registerController(req, res) {
 
         const user = await db.run('INSERT INTO users(name, email, password_hash, role) VALUES (?,?,?,?);', [name, email, password_hash, role]);
 
-        await db.close()
+        await db.close();
 
-        req.session.userId = user.lastID;
+        const token = jwt.sign(
+            { id: user.lastID, email: email },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        res.cookie("jwt", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
 
         res.status(201).json({ message: "User registered successfully" });
 
@@ -86,7 +98,18 @@ export async function loginController(req, res) {
             return res.status(400).json({ err: "Incorrect password" });
         }
 
-        req.session.userId = user.id;
+        const token = jwt.sign(
+            { id: user.id, email: email },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        res.cookie("jwt", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
 
         return res.status(201).json({ message: "Logged in" });
 
@@ -96,15 +119,33 @@ export async function loginController(req, res) {
 }
 
 export function sessionController(req, res) {
-    const userId = req.session.userId;
-    res.json({ userId: userId ?? null });
+    const token = req.cookies.jwt;
+    if (!token) {
+        return res.status(401).json({ session: null });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return res.status(200).json({
+            session: {
+                userId: decoded.id,
+                email: decoded.email
+            }
+        });
+    } catch (err) {
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax"
+        });
+        return res.json({ session: null });
+    }
 }
 
 export function logoutController(req, res) {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).json({ err: "Failed to log out" });
-        }
-        res.json({ message: "Logged out" });
+    res.clearCookie("jwt", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax"
     });
+    res.json({ message: "Logged out" });
 }

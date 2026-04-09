@@ -1,11 +1,12 @@
 .header {
-  background-color: #171717;
-  color: #579af7;
+  background-color: var(--bg-secondary);
+  color: var(--accent);
   font-family: "Space Grotesk", sans-serif;
   padding: 30px 20px;
   display: flex;
   align-items: center;
   gap: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .header-title {
@@ -18,8 +19,8 @@
 .header-home-button {
   background: none;
   border: none;
-  border-bottom: 2px solid #579af7;
-  color: #65a5ff;
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent-light);
   padding: 0 0 4px 0;
   font: inherit;
   cursor: pointer;
@@ -36,7 +37,7 @@
 .header-login-button {
   background: none;
   border: none;
-  color: #579af7;
+  color: var(--accent);
   padding: 0;
   font: inherit;
   cursor: pointer;
@@ -45,8 +46,8 @@
 }
 
 .header-signin-button {
-  color: #252525;
-  background-color: #579af7;
+  color: var(--accent-text-on);
+  background-color: var(--accent);
   border: none;
   border-radius: 8px;
   padding: 8px 14px;
@@ -79,4 +80,22 @@
 .header-signin-button:hover, .header-home-button:hover, .header-login-button:hover, .header-logout-button:hover {
     transform: scale(1.1);
     transition: 0.1s;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.2);
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { usePage } from "../context/PageContext.jsx";
+import RepliesSection from "../components/RepliesSection.jsx";
 import "../css/post-view.css";
+import { fetchPostById } from "../handlers/postsHandlers.js";
 
 export default function PostViewPage() {
   const { activePostId, setActivePage, setActivePostId } = usePage();
@@ -13,20 +15,17 @@ export default function PostViewPage() {
       return;
     }
 
-    const fetchPost = async () => {
+    const loadPost = async () => {
       try {
-        const res = await fetch(`/api/posts/${activePostId}`);
-        if (res.ok) {
-          const data = await res.json();
-          setPost(data);
-        }
+        const data = await fetchPostById(activePostId);
+        setPost(data);
       } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
-    fetchPost();
+    loadPost();
   }, [activePostId, setActivePage]);
 
   const handleBack = () => {
@@ -35,7 +34,7 @@ export default function PostViewPage() {
   };
 
   const timeAgoFormatter = (dateString) => {
-    const date = new Date(dateString + "Z");
+    const date = new Date(dateString + (dateString.includes("Z") ? "" : "Z"));
     const seconds = Math.floor((new Date() - date) / 1000);
     
     let interval = seconds / 31536000;
@@ -78,10 +77,7 @@ export default function PostViewPage() {
               </div>
             )}
 
-            <section className="post-replies-container">
-              <h3 className="post-replies-header">Replies</h3>
-              <p style={{ color: "#a0a0a0" }}>Replies functionality coming soon...</p>
-            </section>
+            <RepliesSection postId={activePostId} />
           </article>
         )}
       </div>

@@ -1,100 +1,95 @@
-.create-post-page {
-  padding: 60px 40px;
-  display: flex;
-  justify-content: center;
-}
-
-.create-post-card {
-  width: 100%;
-  max-width: 600px;
-  background-color: #1b1b1b;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-  font-family: inherit;
-}
-
-.create-post-title {
-  margin: 0 0 24px 0;
-  color: #65a5ff;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 2rem;
-  text-align: center;
-}
-
 .create-post-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
+  max-width: 700px;
+}
+
+.create-post-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .create-post-label {
-  color: #d9d9d9;
-  font-size: 1.15rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: -10px;
 }
 
 .create-post-input {
-  border: 1px solid #3a3a3a;
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
-  padding: 12px 16px;
-  background-color: #252525;
-  color: #f0f0f0;
-  font-size: 1rem;
+  padding: 14px 18px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1.05rem;
   font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.create-post-input:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .create-post-textarea {
   resize: vertical;
+  min-height: 200px;
+  line-height: 1.6;
 }
 
 .create-post-file {
-  color: #d9d9d9;
-  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  padding: 8px 0;
 }
 
 .create-post-error {
+  background: rgba(255, 101, 101, 0.1);
   color: #ff6565;
-  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 101, 101, 0.2);
 }
 
 .create-post-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 16px;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.create-post-submit {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .create-post-cancel {
   background-color: transparent;
-  color: #a0a0a0;
-  border: 1px solid #3a3a3a;
-  border-radius: 8px;
-  padding: 12px 20px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 12px 24px;
   font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.create-post-submit {
-  background-color: #579af7;
-  color: #121212;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.2s;
+.create-post-submit:hover {
+  opacity: 0.9;
 }
 
 .create-post-cancel:hover {
-  background-color: #252525;
-  color: #ffffff;
-}
-
-.create-post-submit:hover {
-  opacity: 0.9;
+  border-color: var(--text-muted);
+  color: var(--text-primary);
 }

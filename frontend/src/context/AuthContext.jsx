@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { fetchSession } from "../handlers/authHandlers.js";
 
 const AuthContext = createContext(null);
 
@@ -9,13 +10,8 @@ export function AuthProvider({ children }) {
 
   const refreshSession = useCallback(async () => {
     try {
-      const res = await fetch("/api/auth/session", { credentials: "include" });
-      if (!res.ok) {
-        setUserId(null);
-        return;
-      }
-      const data = await res.json();
-      setUserId(data.userId ?? null);
+      const data = await fetchSession();
+      setUserId(data?.session?.userId || data?.userId || null);
     } catch {
       setUserId(null);
     } finally {

@@ -2,6 +2,7 @@ import { Router } from "express"
 import { createPost, getPosts, getPost } from "./postsControllers.js"
 import multer from "multer"
 import path from "path"
+import { requireAuth } from "../auth/authMiddleware.js";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -16,7 +17,7 @@ const upload = multer({ storage: storage })
 
 const postsRouter = Router();
 
-postsRouter.post("/", upload.single('image'), createPost);
+postsRouter.post("/", requireAuth, upload.single('image'), createPost);
 postsRouter.get("/", getPosts);
 postsRouter.get("/:id", getPost);
 
