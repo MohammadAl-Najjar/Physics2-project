@@ -19,9 +19,13 @@ if (process.env.NODE_ENV === "production") {
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join('frontend')));
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/posts/:postId/answers", answersRouter);
-app.listen(PORT);
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});
