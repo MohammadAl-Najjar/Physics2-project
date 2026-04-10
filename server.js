@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url';
 import { authRouter } from './apis/auth/authRoutes.js';
 import 'dotenv/config'
 import cors from 'cors'
@@ -19,7 +20,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRouter);
