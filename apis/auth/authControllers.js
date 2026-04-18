@@ -1,10 +1,7 @@
-import { openConnection } from "../../db/openDbConnection.js"
+import { db } from "../../db/openDbConnection.js"
 import validator from "validator"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-
-// TODO : use session stores like redis or mongoDB to persist data even
-// after restarts  
 
 export async function registerController(req, res) {
     try {
@@ -29,17 +26,19 @@ export async function registerController(req, res) {
             return res.status(400).json({ err: "Password must contain at least 8 characters" })
         }
 
-        const response = await fetch(`https://api.zerobounce.net/v2/validate?email=${email}&api_key=${process.env.ZEROBOUNCE_API_KEY}`);
-        const data = await response.json()
-        if (data.status != "valid") {
-            return res.status(400).json({ err: "This email address does not exist" })
+        if (process.env.ZEROBOUNCE_API_KEY) {
+            const zbResponse = await fetch(`https://api.zerobounce.net/v2/validate?email=${email}&api_key=${process.env.ZEROBOUNCE_API_KEY}`);
+            if (zbResponse.ok) {
+                const data = await zbResponse.json();
+                if (data.status != "valid") {
+                    return res.status(400).json({ err: "This email address does not exist" });
+                }
+            }
         }
 
-        const db = await openConnection();
+        const exists = await db.query("SELECT id FROM users WHERE email = $1;", [email]);
 
-        const exists = await db.get("SELECT id FROM users WHERE email = ?;", [email]);
-
-        if (exists) {
+        if (exists.rows.length > 0) {
             return res.status(400).json({ err: "An account with this email already exists" });
         }
 
@@ -51,12 +50,10 @@ export async function registerController(req, res) {
 
         const password_hash = await bcrypt.hash(password, 10);
 
-        const user = await db.run('INSERT INTO users(name, email, password_hash, role) VALUES (?,?,?,?);', [name, email, password_hash, role]);
-
-        await db.close();
+        const user = await db.query('INSERT INTO users(name, email, password_hash, role) VALUES ($1,$2,$3,$4) RETURNING id;', [name, email, password_hash, role]);
 
         const token = jwt.sign(
-            { id: user.lastID, email: email },
+            { id: user.rows[0].id, email: email },
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
@@ -71,7 +68,8 @@ export async function registerController(req, res) {
         res.status(201).json({ message: "User registered successfully" });
 
     } catch (err) {
-        res.status(500).json({ message: "Internal server error", err: err });
+        console.error("registerController error:", err);
+        res.status(500).json({ message: "Internal server error", err: err.message });
     }
 }
 
@@ -83,11 +81,9 @@ export async function loginController(req, res) {
             return res.status(400).json({ err: "All fields are required" });
         }
 
-        const db = await openConnection();
+        const result = await db.query("SELECT * FROM users WHERE email = $1;", [email]);
+        const user = result.rows[0];
 
-        const user = await db.get("SELECT * FROM users WHERE email = ?;", [email]);
-
-        await db.close();
         if (!user) {
             return res.status(404).json({ err: "Account with this email is not found" })
         }

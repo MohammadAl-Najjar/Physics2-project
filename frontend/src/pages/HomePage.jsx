@@ -27,9 +27,9 @@ export default function HomePage() {
   }, []);
 
   const timeAgoFormatter = (dateString) => {
-    const date = new Date(dateString + "Z");
+    const date = new Date(dateString);
     const seconds = Math.floor((new Date() - date) / 1000);
-    
+
     let interval = seconds / 31536000;
     if (interval > 1) return Math.floor(interval) + " years ago";
     interval = seconds / 2592000;
@@ -55,13 +55,13 @@ export default function HomePage() {
           <p style={{ color: "var(--text-muted)" }}>Loading posts...</p>
         ) : filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <Post 
+            <Post
               key={post.id}
               id={post.id}
-              category={post.category} 
-              body={post.title} 
-              author={post.author || "Unknown"} 
-              timeAgo={timeAgoFormatter(post.created_at)} 
+              category={post.category}
+              body={post.title}
+              author={post.author || "Unknown"}
+              timeAgo={timeAgoFormatter(post.created_at)}
               answersCount={post.answers_count}
               onClick={() => {
                 setActivePostId(post.id);

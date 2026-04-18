@@ -2,7 +2,6 @@ import express from 'express'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url';
 import { authRouter } from './apis/auth/authRoutes.js';
-import 'dotenv/config'
 import cors from 'cors'
 import postsRouter from './apis/posts/postsRoutes.js';
 import answersRouter from './apis/answers/answersRoutes.js';

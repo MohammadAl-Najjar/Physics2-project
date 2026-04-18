@@ -1,4 +1,4 @@
-import { openConnection } from "../../db/openDbConnection.js";
+import { db } from "../../db/openDbConnection.js";
 
 export async function createPost(req, res) {
     try {
@@ -10,13 +10,10 @@ export async function createPost(req, res) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        const db = await openConnection();
-
-        await db.run(`
-            INSERT INTO posts (title, body, category, image_url, user_id) VALUES (?, ?, ?, ?, ?)
+        await db.query(`
+            INSERT INTO posts (title, body, category, image_url, user_id) VALUES ($1, $2, $3, $4, $5)
         `, [title, body, category, image_url, user_id]);
 
-        await db.close();
         return res.status(201).json({ message: "Post created successfully" });
 
     } catch (error) {
@@ -26,18 +23,17 @@ export async function createPost(req, res) {
 
 export async function getPosts(req, res) {
     try {
-        const db = await openConnection();
-        const posts = await db.all(`
+        const posts = await db.query(`
             SELECT posts.*, users.name as author, COUNT(answers.id) as answers_count
             FROM posts 
             LEFT JOIN users ON posts.user_id = users.id 
             LEFT JOIN answers ON posts.id = answers.post_id
-            GROUP BY posts.id
+            GROUP BY posts.id, users.id
             ORDER BY posts.created_at DESC
         `);
-        await db.close();
-        return res.status(200).json(posts);
+        return res.status(200).json(posts.rows);
     } catch (error) {
+        console.error("getPosts error:", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 }
@@ -45,18 +41,17 @@ export async function getPosts(req, res) {
 export async function getPost(req, res) {
     try {
         const { id } = req.params;
-        const db = await openConnection();
-        const post = await db.get(`
+        const post = await db.query(`
             SELECT posts.*, users.name as author, COUNT(answers.id) as answers_count
             FROM posts 
             LEFT JOIN users ON posts.user_id = users.id 
             LEFT JOIN answers ON posts.id = answers.post_id
-            WHERE posts.id = ?
-            GROUP BY posts.id
+            WHERE posts.id = $1
+            GROUP BY posts.id, users.id
         `, [id]);
-        await db.close();
-        return res.status(200).json(post);
+        return res.status(200).json(post.rows[0]);
     } catch (error) {
+        console.error("getPost error:", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 }
