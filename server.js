@@ -15,9 +15,12 @@ const app = express();
 if (process.env.NODE_ENV === "production") {
     app.use(helmet({
         contentSecurityPolicy: {
+            useDefaults: true,
             directives: {
-                ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                "img-src": ["'self'", "data:", "https://*.supabase.co"],
+                "img-src": ["'self'", "data:", "https://*.supabase.co", "https://*.supabase.in", "blob:"],
+                "script-src": ["'self'", "'unsafe-inline'", "https://kit.fontawesome.com"],
+                "connect-src": ["'self'", "https://ka-f.fontawesome.com", "https://*.supabase.co", "https://*.supabase.in"],
+                "font-src": ["'self'", "https://ka-f.fontawesome.com", "data:"],
             },
         },
         crossOriginResourcePolicy: { policy: "cross-origin" }
