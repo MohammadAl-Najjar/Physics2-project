@@ -27,6 +27,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/posts/:postId/answers", answersRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+    app.listen(PORT, () => {
+        console.log(`Server started on port ${PORT}`);
+    });
+}
+
+export { app };

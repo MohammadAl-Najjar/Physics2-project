@@ -1,9 +1,33 @@
 import { db } from "../../db/openDbConnection.js";
+import { supabase } from "../lib/supabaseClient.js";
 
 export async function createPost(req, res) {
     try {
         const { title, body, category } = req.body;
-        const image_url = req.file ? `/uploads/${req.file.filename}` : null;
+        let image_url = null;
+        
+        if (req.file) {
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            const filename = `image-${uniqueSuffix}-${req.file.originalname}`;
+            
+            const { error: uploadError } = await supabase.storage
+                .from('uploads')
+                .upload(filename, req.file.buffer, {
+                    contentType: req.file.mimetype
+                });
+                
+            if (uploadError) {
+                console.error("Supabase upload error:", uploadError);
+                return res.status(500).json({ message: "Failed to upload image" });
+            }
+            
+            const { data: publicUrlData } = supabase.storage
+                .from('uploads')
+                .getPublicUrl(filename);
+                
+            image_url = publicUrlData.publicUrl;
+        }
+
         const user_id = req.userId;
 
         if (!title || !body || !category) {
