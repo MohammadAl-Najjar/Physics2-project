@@ -24,7 +24,7 @@ export default function Auth() {
               <label className="auth-label" htmlFor="login-password">
                 Password
               </label>
-              <input className="auth-input" id="login-password" type="password" name="password" required minLength="8"/>
+              <input className="auth-input" id="login-password" type="password" name="password" required minLength="8" />
 
               <button type="submit" className="auth-submit-button">
                 Login
@@ -32,15 +32,15 @@ export default function Auth() {
             </form>
 
             <p className="auth-switch-text">
-              Dont have an account?
+              Don't have an account?
               <button type="button" className="auth-switch-button" onClick={() => setSignInMode("signin")}>
-                Sign in
+                Sign up
               </button>
             </p>
           </>
         ) : (
           <>
-            <h2 className="auth-title">Sign in</h2>
+            <h2 className="auth-title">Sign up</h2>
             {error && <p className="auth-error">{error}</p>}
             <form className="auth-form" onSubmit={(e) => handleRegisterSubmit(e, setError, refreshSession)}>
               <label className="auth-label" htmlFor="signin-name">

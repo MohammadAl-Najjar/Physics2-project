@@ -26,13 +26,11 @@ export async function registerController(req, res) {
             return res.status(400).json({ err: "Password must contain at least 8 characters" })
         }
 
-        if (process.env.ZEROBOUNCE_API_KEY) {
-            const zbResponse = await fetch(`https://api.zerobounce.net/v2/validate?email=${email}&api_key=${process.env.ZEROBOUNCE_API_KEY}`);
-            if (zbResponse.ok) {
-                const data = await zbResponse.json();
-                if (data.status != "valid") {
-                    return res.status(400).json({ err: "This email address does not exist" });
-                }
+        const zbResponse = await fetch(`https://api.zerobounce.net/v2/validate?email=${email}&api_key=${process.env.ZEROBOUNCE_API_KEY}`);
+        if (zbResponse.ok) {
+            const data = await zbResponse.json();
+            if (data.status != "valid") {
+                return res.status(400).json({ err: "This email address does not exist" });
             }
         }
 

@@ -15,8 +15,8 @@ export default function Header() {
 
   return (
     <header className="header">
-      <h1 
-        className="header-title" 
+      <h1
+        className="header-title"
         style={{ cursor: "pointer" }}
         onClick={() => {
           setActivePostId(null);
@@ -25,8 +25,8 @@ export default function Header() {
       >
         Physics Forums
       </h1>
-      <button 
-        type="button" 
+      <button
+        type="button"
         className="header-home-button"
         onClick={() => {
           setActivePostId(null);
@@ -42,7 +42,7 @@ export default function Header() {
               Login
             </button>
             <button type="button" className="header-signin-button" onClick={() => setSignInMode("signin")}>
-              Sign in
+              Sign up
             </button>
           </>
         ) : null}
