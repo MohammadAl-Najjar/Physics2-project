@@ -8,7 +8,8 @@ export async function createPost(req, res) {
         
         if (req.file) {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-            const filename = `image-${uniqueSuffix}-${req.file.originalname}`;
+            const sanitizedOriginalName = req.file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+            const filename = `image-${uniqueSuffix}-${sanitizedOriginalName}`;
             
             const { error: uploadError } = await supabase.storage
                 .from('uploads')

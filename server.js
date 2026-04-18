@@ -13,7 +13,15 @@ const PORT = 8000;
 const app = express();
 // middleware
 if (process.env.NODE_ENV === "production") {
-    app.use(helmet());
+    app.use(helmet({
+        contentSecurityPolicy: {
+            directives: {
+                ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                "img-src": ["'self'", "data:", "https://*.supabase.co"],
+            },
+        },
+        crossOriginResourcePolicy: { policy: "cross-origin" }
+    }));
     app.set('trust proxy', 1);
 }
 app.use(cors({ origin: true, credentials: true }));
