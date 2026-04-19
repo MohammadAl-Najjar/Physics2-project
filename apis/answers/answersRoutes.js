@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAnswer, getAnswersForPost } from "./answersControllers.js";
+import { createAnswer, getAnswersForPost, getMyAnswers } from "./answersControllers.js";
 import { requireAuth } from "../auth/authMiddleware.js";
 
 const answersRouter = Router({ mergeParams: true });

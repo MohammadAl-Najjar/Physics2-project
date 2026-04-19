@@ -23,3 +23,14 @@ export const createAnswer = async (postId, body) => {
   }
   return await res.json();
 };
+export const fetchMyAnswers = async () => {
+  const res = await fetch(`/api/user/answers`);
+  if (res.status === 401) {
+    throw new Error("Session expired");
+  }
+  if (!res.ok) {
+    throw new Error("Failed to fetch my answers");
+  }
+  const data = await res.json();
+  return data.answers || [];
+};

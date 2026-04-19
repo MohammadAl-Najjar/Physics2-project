@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage.jsx"
 import HomePage from "./pages/HomePage.jsx"
 import CreatePostPage from "./pages/CreatePostPage.jsx"
 import PostViewPage from "./pages/PostViewPage.jsx"
+import ProfilePage from "./pages/ProfilePage.jsx"
 import { AuthProvider, useAuth } from "./context/AuthContext.jsx"
 import { PageProvider, usePage } from "./context/PageContext.jsx"
 import { ThemeProvider } from "./context/ThemeContext.jsx"
@@ -18,6 +19,7 @@ function AuthGate() {
     if (userId) {
         if (activePage === "create_post") return <CreatePostPage />
         if (activePage === "view_post") return <PostViewPage />
+        if (activePage === "profile") return <ProfilePage />
         return <HomePage />
     }
     return <LoginPage />

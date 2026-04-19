@@ -5,6 +5,7 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState(null);
   const [loading, setLoading] = useState(true);
   const [signInMode, setSignInMode] = useState("login");
 
@@ -12,8 +13,10 @@ export function AuthProvider({ children }) {
     try {
       const data = await fetchSession();
       setUserId(data?.session?.userId || data?.userId || null);
+      setUserName(data?.session?.name || null);
     } catch {
       setUserId(null);
+      setUserName(null);
     } finally {
       setLoading(false);
     }
@@ -26,12 +29,13 @@ export function AuthProvider({ children }) {
   const value = useMemo(
     () => ({
       userId,
+      userName,
       loading,
       refreshSession,
       signInMode,
       setSignInMode,
     }),
-    [userId, loading, refreshSession, signInMode]
+    [userId, userName, loading, refreshSession, signInMode]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

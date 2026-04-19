@@ -69,3 +69,19 @@ export async function getAnswersForPost(req, res) {
         return res.status(500).json({ err: "Internal server error, " + error.message });
     }
 }
+
+export async function getMyAnswers(req, res) {
+    try {
+        const user_id = req.userId;
+        const answers = await db.query(`
+            SELECT answers.*, users.name as author 
+            FROM answers 
+            JOIN users ON answers.user_id = users.id 
+            WHERE answers.user_id = $1
+            ORDER BY answers.created_at DESC
+        `, [user_id]);
+        return res.status(200).json({ answers: answers.rows });
+    } catch (error) {
+        return res.status(500).json({ err: "Internal server error, " + error.message });
+    }
+}

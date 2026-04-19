@@ -96,3 +96,22 @@ export async function getPost(req, res) {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
+
+export async function getMyPosts(req, res) {
+    try {
+        const user_id = req.userId;
+        const posts = await db.query(`
+            SELECT posts.*, users.name as author, COUNT(answers.id) as answers_count
+            FROM posts 
+            LEFT JOIN users ON posts.user_id = users.id 
+            LEFT JOIN answers ON posts.id = answers.post_id
+            WHERE posts.user_id = $1
+            GROUP BY posts.id, users.id
+            ORDER BY posts.created_at DESC
+        `, [user_id]);
+        return res.status(200).json(posts.rows);
+    } catch (error) {
+        console.error("getMyPosts error:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}

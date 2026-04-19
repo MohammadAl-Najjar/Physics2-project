@@ -112,17 +112,21 @@ export async function loginController(req, res) {
     }
 }
 
-export function sessionController(req, res) {
+export async function sessionController(req, res) {
     const token = req.cookies.jwt;
     if (!token) {
         return res.status(401).json({ session: null });
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userQuery = await db.query("SELECT name FROM users WHERE id = $1", [decoded.id]);
+        const name = userQuery.rows[0]?.name || "User";
+        
         return res.status(200).json({
             session: {
                 userId: decoded.id,
-                email: decoded.email
+                email: decoded.email,
+                name: name
             }
         });
     } catch (err) {

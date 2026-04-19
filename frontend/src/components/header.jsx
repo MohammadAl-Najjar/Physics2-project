@@ -35,6 +35,22 @@ export default function Header() {
       >
         Home
       </button>
+
+      {/* Show Profile button only if user is logged in */}
+      {!loading && userId && (
+         <button
+           type="button"
+           className="header-home-button"
+           style={{ marginLeft: "10px" }}
+           onClick={() => {
+             setActivePostId(null);
+             setActivePage("profile");
+           }}
+         >
+           Profile
+         </button>
+      )}
+
       <div className="header-right-buttons">
         {!loading && !userId ? (
           <>

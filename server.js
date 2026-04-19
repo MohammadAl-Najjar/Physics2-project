@@ -38,6 +38,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/posts/:postId/answers", answersRouter);
 
+import { getMyAnswers } from './apis/answers/answersControllers.js';
+import { requireAuth } from './apis/auth/authMiddleware.js';
+app.get("/api/user/answers", requireAuth, getMyAnswers);
+
 if (process.env.NODE_ENV !== "test") {
     app.listen(PORT, () => {
         console.log(`Server started on port ${PORT}`);

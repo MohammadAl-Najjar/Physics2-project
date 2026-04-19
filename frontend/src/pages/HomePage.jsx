@@ -11,6 +11,12 @@ export default function HomePage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -47,28 +53,57 @@ export default function HomePage() {
     ? posts.filter((p) => p.category === selectedCategory)
     : posts;
 
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <main className="home-page">
       <Hero />
       <div className="home-feed">
         {loading ? (
           <p style={{ color: "var(--text-muted)" }}>Loading posts...</p>
-        ) : filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              category={post.category}
-              body={post.title}
-              author={post.author || "Unknown"}
-              timeAgo={timeAgoFormatter(post.created_at)}
-              answersCount={post.answers_count}
-              onClick={() => {
-                setActivePostId(post.id);
-                setActivePage("view_post");
-              }}
-            />
-          ))
+        ) : currentPosts.length > 0 ? (
+          <>
+            {currentPosts.map((post) => (
+              <Post
+                key={post.id}
+                id={post.id}
+                category={post.category}
+                body={post.title}
+                author={post.author || "Unknown"}
+                timeAgo={timeAgoFormatter(post.created_at)}
+                answersCount={post.answers_count}
+                onClick={() => {
+                  setActivePostId(post.id);
+                  setActivePage("view_post");
+                }}
+              />
+            ))}
+            
+            {totalPages > 1 && (
+              <div className="pagination">
+                <button 
+                  className="pagination-btn" 
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                >
+                  Previous
+                </button>
+                <span className="pagination-info">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button 
+                  className="pagination-btn" 
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <p style={{ color: "var(--text-muted)" }}>
             {selectedCategory ? "No posts in this category." : "No posts yet. Be the first to ask!"}

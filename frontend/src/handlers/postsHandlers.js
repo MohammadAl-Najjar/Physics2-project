@@ -29,3 +29,14 @@ export const createPost = async (formData) => {
   }
   return await res.json();
 };
+export const fetchMyPosts = async () => {
+  const res = await fetch("/api/posts/user/me");
+  console.log(res);
+  if (res.status === 401) {
+    throw new Error("Session expired");
+  }
+  if (!res.ok) {
+    throw new Error("Failed to fetch my posts");
+  }
+  return await res.json();
+};
