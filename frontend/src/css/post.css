@@ -32,6 +32,9 @@
   font-weight: 600;
   margin: 0 0 24px 0;
   line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post-meta {

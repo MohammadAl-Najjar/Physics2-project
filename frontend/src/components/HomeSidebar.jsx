@@ -4,11 +4,17 @@ import { usePage } from "../context/PageContext.jsx";
 export default function HomeSidebar({ selectedCategory, onSelectCategory }) {
   const { setActivePage } = usePage();
   const categories = [
-    "Classical Mechanics",
-    "Thermodynamics",
-    "Electromagnetism",
-    "Quantum Mechanics",
-    "Optics"
+    "Electric fields",
+    "Electric flux",
+    "Electric potential",
+    "Capacitors",
+    "Current & Resistance",
+    "Direct Current Circuits",
+    "Kirchhoff’s Circuits",
+    "Magnetic Fields",
+    "Sources of the Magnetic Field",
+    "Physics 1",
+    "Other"
   ];
 
   const handleCategoryClick = (cat) => {

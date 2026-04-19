@@ -23,7 +23,7 @@ export default function Header() {
           setActivePage("home");
         }}
       >
-        Physics Forums
+        PSUT PhysSpace
       </h1>
       <button
         type="button"

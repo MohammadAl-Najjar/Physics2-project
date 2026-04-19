@@ -12,11 +12,17 @@ export default function CreatePostPage() {
   const [error, setError] = useState(null);
 
   const categories = [
-    "Classical Mechanics",
-    "Thermodynamics",
-    "Electromagnetism",
-    "Quantum Mechanics",
-    "Optics"
+    "Electric fields",
+    "Electric flux",
+    "Electric potential",
+    "Capacitors",
+    "Current & Resistance",
+    "Direct Current Circuits",
+    "Kirchhoff’s Circuits",
+    "Magnetic Fields",
+    "Sources of the Magnetic Field",
+    "Physics 1",
+    "Other"
   ];
 
   const handleSubmit = async (e) => {
