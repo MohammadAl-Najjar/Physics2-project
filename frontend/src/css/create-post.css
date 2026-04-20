@@ -93,3 +93,15 @@
   border-color: var(--text-muted);
   color: var(--text-primary);
 }
+
+.create-post-word-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  align-self: flex-end;
+}
+
+.create-post-word-count.limit-reached {
+  color: #ff6565;
+  font-weight: 600;
+}

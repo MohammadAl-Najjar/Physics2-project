@@ -36,6 +36,14 @@ export async function createPost(req, res) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
+        if (title.length > 200) {
+            return res.status(400).json({ message: "Title cannot exceed 200 characters" });
+        }
+
+        if (body.length > 1000) {
+            return res.status(400).json({ message: "Post details cannot exceed 1000 characters" });
+        }
+
         await db.query(`
             INSERT INTO posts (title, body, category, image_url, user_id) VALUES ($1, $2, $3, $4, $5)
         `, [title, body, category, image_url, user_id]);

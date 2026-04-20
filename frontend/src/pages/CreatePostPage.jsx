@@ -10,6 +10,11 @@ export default function CreatePostPage() {
   const { setActivePage } = usePage();
   const { refreshSession, setSignInMode } = useAuth();
   const [error, setError] = useState(null);
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const titleCharCount = title.length;
+  const bodyCharCount = body.length;
 
   const categories = [
     "Electric fields",
@@ -29,6 +34,15 @@ export default function CreatePostPage() {
     e.preventDefault();
     setError(null);
     
+    if (titleCharCount > 200) {
+      setError("Title cannot exceed 200 characters");
+      return;
+    }
+    if (bodyCharCount > 1000) {
+      setError("Post details cannot exceed 1000 characters");
+      return;
+    }
+
     const formData = new FormData(e.target);
     
     try {
@@ -61,7 +75,19 @@ export default function CreatePostPage() {
           <form className="create-post-form" onSubmit={handleSubmit}>
             <div className="create-post-field">
               <label className="create-post-label" htmlFor="post-title">Title</label>
-              <input className="create-post-input" id="post-title" type="text" name="title" required placeholder="What is your question?" />
+              <input 
+                className="create-post-input" 
+                id="post-title" 
+                type="text" 
+                name="title" 
+                required 
+                placeholder="What is your question?" 
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <span className={`create-post-word-count ${titleCharCount > 200 ? "limit-reached" : ""}`}>
+                {titleCharCount} / 200 characters
+              </span>
             </div>
 
             <div className="create-post-field">
@@ -76,7 +102,19 @@ export default function CreatePostPage() {
 
             <div className="create-post-field">
               <label className="create-post-label" htmlFor="post-body">Details</label>
-              <textarea className="create-post-input create-post-textarea" id="post-body" name="body" required rows="8" placeholder="Provide more details to help others understand..."></textarea>
+              <textarea 
+                className="create-post-input create-post-textarea" 
+                id="post-body" 
+                name="body" 
+                required 
+                rows="8" 
+                placeholder="Provide more details to help others understand..."
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+              ></textarea>
+              <span className={`create-post-word-count ${bodyCharCount > 1000 ? "limit-reached" : ""}`}>
+                {bodyCharCount} / 1000 characters
+              </span>
             </div>
 
             <div className="create-post-field">

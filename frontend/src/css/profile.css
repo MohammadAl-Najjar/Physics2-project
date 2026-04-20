@@ -20,6 +20,8 @@
 
 .profile-column {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -53,6 +55,12 @@
 
 .profile-view-post-btn:hover {
   text-decoration: underline;
+}
+
+.profile-answer-card .answer-body {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 900px) {
