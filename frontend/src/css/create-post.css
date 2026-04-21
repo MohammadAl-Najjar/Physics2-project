@@ -105,3 +105,10 @@
   color: #ff6565;
   font-weight: 600;
 }
+
+@media (max-width: 600px) {
+  .create-post-textarea {
+    width: 93%;
+    padding: 12px;
+  }
+}

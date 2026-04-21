@@ -203,3 +203,91 @@
   font-size: inherit;
   margin-left: 4px;
 }
+
+@media (max-width: 600px) {
+  .post-view-page {
+    padding: 30px 16px;
+  }
+
+  .post-view-container {
+    margin-left: 0;
+  }
+
+  .post-view-title {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+
+  .post-view-category {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+
+  .post-view-meta {
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .post-view-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .post-replies-container {
+    margin-top: 30px;
+    padding-top: 30px;
+  }
+
+  .post-replies-header {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .post-reply-textarea {
+    width: 90%;
+    padding: 12px;
+    font-size: 0.95rem;
+    min-height: 100px;
+  }
+
+  .post-reply-button {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+  }
+
+  .answer-item {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
+
+  .answer-body {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-view-title {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+  }
+
+  .post-view-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .post-view-page {
+    padding: 20px 12px;
+  }
+
+  .post-view-category {
+    font-size: 0.75rem;
+  }
+
+  .post-view-meta {
+    font-size: 0.85rem;
+    gap: 4px;
+  }
+}

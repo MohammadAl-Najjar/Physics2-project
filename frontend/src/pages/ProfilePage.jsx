@@ -81,6 +81,12 @@ export default function ProfilePage() {
     <main className="profile-page home-page">
       <div className="home-feed profile-feed-container">
         <h2 className="profile-welcome">Welcome, {userName || "User"}</h2>
+        
+        <HomeSidebar
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          showAskButton={false}
+        />
 
         <div className="profile-side-by-side">
           {/* POSTS COLUMN */}
@@ -185,12 +191,7 @@ export default function ProfilePage() {
             )}
           </div>
         </div>
-
       </div>
-      <HomeSidebar
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
     </main>
   );
 }

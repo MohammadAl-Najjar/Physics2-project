@@ -9,22 +9,51 @@
   transition: background-color 0.3s ease;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .header-title {
-  margin-right: 20px;
   font-size: 1.9rem;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.header-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
 
 .header-home-button {
   background: none;
   border: none;
-  border-bottom: 2px solid var(--accent);
-  color: var(--accent-light);
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
   padding: 0 0 4px 0;
   font: inherit;
   cursor: pointer;
   font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.header-home-button:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 .header-right-buttons {
@@ -59,27 +88,30 @@
 
 
 .header-logout-button {
-    background: none;
-    border: none;
-    padding: 4px;
-    cursor: pointer;
-    color: inherit;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-logout {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
 }
 
-.header-signin-button:hover, .header-home-button:hover, .header-login-button:hover, .header-logout-button:hover {
-    transform: scale(1.1);
-    transition: 0.1s;
+.header-signin-button:hover,
+.header-home-button:hover,
+.header-login-button:hover,
+.header-logout-button:hover {
+  transform: scale(1.1);
+  transition: 0.1s;
 }
 
 /* Theme toggle button */
@@ -98,4 +130,69 @@
 
 .theme-toggle-btn:hover {
   transform: scale(1.2);
+}
+
+@media (max-width: 920px) {
+  .header {
+    padding: 20px;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .header-menu-toggle {
+    display: flex;
+  }
+
+  .header-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background-color: var(--bg-secondary);
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 12px 0;
+    z-index: 1000;
+    border: 1px solid var(--border-subtle);
+    border-left: none;
+    border-top: none;
+  }
+
+  .header-nav-open {
+    display: flex !important;
+  }
+
+  .header-home-button {
+    width: 100%;
+    text-align: left;
+    padding: 8px 0;
+  }
+}
+@media (max-width: 600px) {
+  .header {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .header-title {
+    font-size: 1.3rem;
+  }
+
+  .header-menu-toggle {
+    font-size: 1.3rem;
+  }
+
+  .header-right-buttons {
+    gap: 12px;
+  }
+
+  .header-signin-button {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
 }

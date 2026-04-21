@@ -68,3 +68,48 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 600px) {
+  .profile-welcome {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .profile-feed-container {
+    padding-top: 20px;
+  }
+
+  .profile-column-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .profile-answer-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .profile-view-post-btn {
+    font-size: 0.85rem;
+    margin-top: 10px;
+  }
+}
+
+/* Adjustments for filter at the top of profile page */
+.profile-page .home-sidebar {
+  max-width: 100%;
+  margin-bottom: 30px;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-page .categories-box {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .profile-page .home-sidebar {
+    margin-bottom: 20px;
+  }
+}

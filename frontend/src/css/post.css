@@ -60,3 +60,30 @@
   border-radius: 12px;
   border: 1px solid var(--border-subtle);
 }
+
+@media (max-width: 600px) {
+  .post-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .post-body {
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+  }
+
+  .post-category {
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .post-meta {
+    font-size: 0.85rem;
+  }
+
+  .post-count-badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+  }
+}
