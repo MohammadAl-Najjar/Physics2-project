@@ -11,4 +11,7 @@ Instructor Account Code:
 To register as an instructor, use the following code during signup:
 INSTR_C0DE
 
+The github repository link:
+https://github.com/MohammadAl-Najjar/Physics2-project
+
 Thank you.
