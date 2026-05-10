@@ -102,10 +102,43 @@
   flex-direction: row;
   align-items: center;
   gap: 20px;
+  position: relative;
+  width: 100%;
 }
 
 .profile-page .categories-box {
   flex: 1;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.profile-page .categories-mobile-toggle {
+  display: flex;
+  width: fit-content;
+  min-width: 200px;
+}
+
+.profile-page .categories-content {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 280px;
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid var(--border-subtle);
+  z-index: 900;
+}
+
+.profile-page .categories-content-open {
+  display: block;
+}
+
+.profile-page .categories-title {
+  display: none;
 }
 
 @media (max-width: 900px) {

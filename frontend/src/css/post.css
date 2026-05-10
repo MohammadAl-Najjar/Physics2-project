@@ -6,6 +6,8 @@
   font-family: inherit;
   border: 1px solid var(--border-subtle);
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .post-clickable {
@@ -35,6 +37,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
 }
 
 .post-meta {
@@ -70,6 +74,12 @@
   .post-body {
     font-size: 1.15rem;
     margin-bottom: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+    min-width: 0;
   }
 
   .post-category {

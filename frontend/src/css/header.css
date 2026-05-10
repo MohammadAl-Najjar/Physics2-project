@@ -135,6 +135,7 @@
 @media (max-width: 920px) {
   .header {
     padding: 20px;
+    position: relative;
   }
 
   .header-title {

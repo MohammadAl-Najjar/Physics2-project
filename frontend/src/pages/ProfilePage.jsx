@@ -29,12 +29,12 @@ const timeAgoFormatter = (dateString) => {
 export default function ProfilePage() {
   const { setActivePage, setActivePostId } = usePage();
   const { userName, userId } = useAuth();
-  
+
   const [posts, setPosts] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  
+
   const [postsPage, setPostsPage] = useState(1);
   const [answersPage, setAnswersPage] = useState(1);
   const itemsPerPage = 5;
@@ -81,7 +81,7 @@ export default function ProfilePage() {
     <main className="profile-page home-page">
       <div className="home-feed profile-feed-container">
         <h2 className="profile-welcome">Welcome, {userName || "User"}</h2>
-        
+
         <HomeSidebar
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
@@ -113,8 +113,8 @@ export default function ProfilePage() {
                 ))}
                 {totalPostsPages > 1 && (
                   <div className="pagination">
-                    <button 
-                      className="pagination-btn" 
+                    <button
+                      className="pagination-btn"
                       disabled={postsPage === 1}
                       onClick={() => setPostsPage(prev => Math.max(prev - 1, 1))}
                     >
@@ -123,8 +123,8 @@ export default function ProfilePage() {
                     <span className="pagination-info">
                       Page {postsPage} of {totalPostsPages}
                     </span>
-                    <button 
-                      className="pagination-btn" 
+                    <button
+                      className="pagination-btn"
                       disabled={postsPage === totalPostsPages}
                       onClick={() => setPostsPage(prev => Math.min(prev + 1, totalPostsPages))}
                     >
@@ -153,7 +153,7 @@ export default function ProfilePage() {
                       Answered {timeAgoFormatter(answer.created_at)}
                     </div>
                     <div className="answer-body">{answer.body}</div>
-                    <button 
+                    <button
                       className="profile-view-post-btn"
                       onClick={() => {
                         setActivePostId(answer.post_id);
@@ -166,8 +166,8 @@ export default function ProfilePage() {
                 ))}
                 {totalAnswersPages > 1 && (
                   <div className="pagination">
-                    <button 
-                      className="pagination-btn" 
+                    <button
+                      className="pagination-btn"
                       disabled={answersPage === 1}
                       onClick={() => setAnswersPage(prev => Math.max(prev - 1, 1))}
                     >
@@ -176,8 +176,8 @@ export default function ProfilePage() {
                     <span className="pagination-info">
                       Page {answersPage} of {totalAnswersPages}
                     </span>
-                    <button 
-                      className="pagination-btn" 
+                    <button
+                      className="pagination-btn"
                       disabled={answersPage === totalAnswersPages}
                       onClick={() => setAnswersPage(prev => Math.min(prev + 1, totalAnswersPages))}
                     >
