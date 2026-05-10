@@ -34,12 +34,6 @@ The platform focuses on topics such as electric fields, circuits, and other core
 
 ---
 
-## Project Structure
-
-text frontend/       → React application db/             → database schema (SQL) server.js       → Express server 
-
----
-
 ## Deployment
 
 - Backend and frontend are deployed using Render  
